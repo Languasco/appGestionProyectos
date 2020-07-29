@@ -1,0 +1,79 @@
+<div class="card border-left-warning  shadow  mt-2 ">
+    <div class="card-header">
+        <h5 class="headerTitle"> APROBAR LAS ORDENES DE COMPRA</h5>
+    </div>
+    <div class="card-body">
+
+        <form [formGroup]="formParamsFiltro" style="margin-top: -10px !important;">
+            <div class="row">
+                <div class="col-sm-12 col-md-10">
+                    <div class="form-row">
+                        <div class="col-xs-12 col-sm-6 col-md-3">
+                            <label class="control-label"> Nro OC</label>
+                            <input type="text" class="form-control" formControlName="nroOc">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-2">
+                    <div class="d-flex justify-content-center p-3">
+                        <div>
+                            <button class="btn  btn-sm  btn-primary" (click)="mostrarInformacion()" title="Mostar la informacion">
+                              <i class="fas fa-search"> Mostrar</i> 
+                             </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <hr style="  margin-top: 3px;">
+        <div class="search-results tableFixHead">
+            <table class="table  table-bordered table-hover table-sm">
+                <thead class="theadTable">
+                    <tr style="height: 40px !important;">
+                        <th scope="col">#</th>
+                        <th scope="col">Tipo OC</th>
+                        <th scope="col">Nro OC</th>
+                        <th scope="col">Fecha Emision</th>
+                        <th scope="col">MO</th>
+
+                        <th class="text-right">Sub Total</th>
+                        <th class="text-right">Tot IGV</th>
+                        <th class="text-right">Total</th>
+
+                        <th scope="col">Forma Pago</th>
+                        <th> Proveedor </th>
+                        <th class="text-center">Aprobado por jefe Area</th>
+                        <th scope="col">Solicitante</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of ordenesCompraCab ; index as j">
+                        <th scope="row"> {{j + 1}} </th>
+                        <td>{{item.tipoOc}}</td>
+                        <td>{{item.nroOC}}</td>
+                        <td>{{item.fechaEmision}}</td>
+                        <td>{{item.moneda}}</td>
+
+                        <td class="text-right">{{item.subTotal | number:'0.1-5'}}</td>
+                        <td class="text-right">{{item.igv | number:'0.1-5'}}</td>
+                        <td class="text-right">{{item.total | number:'0.1-5' }}</td>
+
+                        <td>
+                            <div style="width: 120px; ">
+                                {{item.formaPago}}
+                            </div>
+                        </td>
+                        <td>
+                            <div style="width: 300px; ">
+                                {{item.proveedor}}
+                            </div>
+                        </td>
+                        <td class="text-right">{{item.aprobadorJefe}}</td>
+                        <td class="text-right">{{item.solicitante}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

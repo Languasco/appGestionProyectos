@@ -1,0 +1,208 @@
+/* You can add global styles to this file, and also import other style files */
+
+label {
+    color: #746660;
+    margin-bottom: 2px;
+    font-size: 11px;
+    margin-bottom: 2px;
+    font-family: tahoma;
+    font-weight: 700;
+}
+
+.form-control,
+input {
+    font-family: tahoma;
+    font-size: 12px;
+    height: 30px;
+    margin-bottom: 2px;
+}
+
+.puntero {
+    cursor: pointer;
+}
+
+body {
+    background-color: #adb5bd;
+}
+
+.border-left-warning {
+    border-left: 5px solid #d30500 !important;
+}
+
+table thead {
+    font-size: 13px;
+    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
+}
+
+table tbody {
+    font-size: 11px;
+    color: #746660;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.h5,
+h5 {
+    font-size: 1rem;
+}
+
+
+/* .table .theadTable th {
+    background-color: #FFE0CC;
+    color: #746660;
+    border-color: #B8AFAC;
+}
+
+.table .theadTableModal th {
+    background-color: #FFE0CC;
+    color: #746660;
+    border-color: #B8AFAC;
+} */
+
+.fc-toolbar h2 {
+    text-transform: capitalize !important;
+}
+
+.bs-timepicker-field {
+    width: 40px !important;
+    padding: .375rem .55rem;
+}
+
+
+/* input file */
+
+.botonFile {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    width: 98%;
+}
+
+.botonFile .btn {
+    border: 2px solid gray;
+    color: gray;
+    background-color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+
+/* Fin de input file */
+
+table {
+    border-collapse: separate;
+    border-spacing: 0.5px;
+}
+
+@media (min-width: 768px) {
+    .modal-lg,
+    .modal-xl {
+        max-width: 760px !important;
+    }
+    .navbar-expand-md .navbar-nav .nav-link {
+        padding-right: 3.5rem;
+        padding-left: .5rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .modal-lg,
+    .modal-xl {
+        max-width: 1000px !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    .modal-lg,
+    .modal-xl {
+        max-width: 1200px !important;
+    }
+}
+
+
+/* //// desabilitar elementos */
+
+.disabledForm {
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.6;
+}
+
+
+/* //// desabilitar elementos */
+
+#example_info {
+    color: #333333;
+    font-size: 10px !important;
+}
+
+@media (min-width: 576px) {
+    .card-columns {
+        column-count: 3;
+    }
+}
+
+@media (min-width: 768px) {
+    .card-columns {
+        column-count: 4;
+    }
+}
+
+@media (min-width: 992px) {
+    .card-columns {
+        column-count: 4;
+    }
+}
+
+@media (min-width: 1200px) {
+    .card-columns {
+        column-count: 5;
+    }
+}
+
+.comboBox {
+    height: 30px;
+    color: #746660;
+    margin-bottom: 2px;
+    font-size: 11px;
+    font-family: tahoma;
+    font-weight: 500;
+}
+
+
+/* input file */
+
+.botonFile {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    width: 98%;
+}
+
+.botonFile .btn {
+    border: 2px solid gray;
+    color: gray;
+    background-color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.botonFile,
+input {
+    height: 40px;
+}
+
+
+/* //- cabecera del titulo  */
+
+.card-header {
+    background-color: #d30500;
+    color: white;
+}
+
+
+/* Fin de input file */
