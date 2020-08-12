@@ -13,7 +13,7 @@ label {
 input {
     font-family: tahoma;
     font-size: 12px;
-    height: 30px;
+    height: 28px;
     margin-bottom: 2px;
 }
 
@@ -166,9 +166,9 @@ table {
     height: 30px;
     color: #746660;
     margin-bottom: 2px;
-    font-size: 11px;
+    font-size: 11px !important;
     font-family: tahoma;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 
@@ -206,3 +206,22 @@ input {
 
 
 /* Fin de input file */
+
+
+/* resaltado de una table */
+
+tbody tr:hover {
+    background-color: aquamarine !important;
+    cursor: pointer;
+}
+
+.linkOpcion {
+    color: red !important;
+    font-weight: 800;
+    text-decoration: underline !important;
+}
+
+.swal2-popup.swal2-toast .swal2-title {
+    font-size: 12px !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+}

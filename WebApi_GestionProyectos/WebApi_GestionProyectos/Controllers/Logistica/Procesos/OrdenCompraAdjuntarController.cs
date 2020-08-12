@@ -98,11 +98,24 @@ namespace WebApi_GestionProyectos.Controllers.Logistica.Procesos
                     res.totalpage = 0;
                     resul = res;
                 }
+                else if (opcion == 8)
+                {
+                    string[] parametros = filtro.Split('|');
+                    string idFileOrdenCompra = parametros[0].ToString();
+                    string tipoDoc = parametros[1].ToString();
+                    string nroDoc = parametros[2].ToString();
+                    string fecha = parametros[3].ToString();
+                    string importe = parametros[4].ToString();
+
+                    OrdenCompraAdjuntar_BL obj_negocio = new OrdenCompraAdjuntar_BL();
+                    resul = obj_negocio.set_EditandoFile_ordenCompra(idFileOrdenCompra, tipoDoc, nroDoc, fecha, importe);
+                }
                 else
                 {
                     res.ok = false;
                     res.data = "Opcion seleccionada invalida";
                     res.totalpage = 0;
+
 
                     resul = res;
                 }

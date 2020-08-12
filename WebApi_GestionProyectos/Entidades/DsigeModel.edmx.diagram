@@ -7,6 +7,8 @@
       <Diagram DiagramId="18068678ec9243ab9e0e9fb1c06da7e5" Name="Diagram1">
         <EntityTypeShape EntityType="MFSoft_Base_PIModel.Alm_Articulo" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MFSoft_Base_PIModel.Pub_Usuarios" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="MFSoft_Base_PIModel.tbl_Aceesos_Evento" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="MFSoft_Base_PIModel.tbl_Definicion_Opciones" Width="1.5" PointX="5.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

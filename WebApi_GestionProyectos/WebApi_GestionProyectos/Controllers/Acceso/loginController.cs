@@ -46,20 +46,81 @@ namespace WebApi_GestionProyectos.Controllers.Acceso
                         Menu listamenu = new Menu();
                         Pub_Usuarios objUsuario = db.Pub_Usuarios.Where(p => p.Pub_Usua_Login == login && p.Pub_Usua_Clave == claveEncriptada).SingleOrDefault();
 
-                        //res.ok = true;
-                        //res.data = (from a in db.tbl_Usuarios
-                        //            where a.login_usuario == login && a.contrasenia_usuario == contra
-                        //            select new
-                        //            {
-                        //                id_usuario = a.id_Usuario,
-                        //                nombre_usuario = a.apellidos_usuario + " " + a.nombres_usuario 
-                        //            }).ToList();
-                        //res.totalpage = 0;
-                        //resul = res;
+                        List<MenuPermisos> listaAccesos = new List<MenuPermisos>();
 
+                        var Parents = new string[] { "0" };
+
+                        var listaModulos = (from w in db.tbl_Aceesos_Evento
+                                         join od in db.tbl_Definicion_Opciones on w.id_Opcion equals od.id_opcion
+                                         join u in db.Pub_Usuarios on w.id_Usuario equals u.Pub_Usua_Codigo
+                                         where u.Pub_Usua_Codigo == objUsuario.Pub_Usua_Codigo && Parents.Contains(od.parentID.ToString()) && od.estado == 1
+                                         orderby od.orden_Opcion ascending
+                                         select new
+                                         {
+                                             id_opcion = w.id_Opcion,
+                                             id_usuarios = w.id_Usuario,
+                                             nombre_principal = od.nombre_opcion,
+                                             parent_id_principal = od.parentID,
+                                             urlmagene_principal = od.urlImagen_Opcion
+                                         }).Distinct();
+
+                        foreach (var item in listaModulos)
+                        {
+                            MenuPermisos listaJsonObj = new MenuPermisos();
+
+                            listaJsonObj.id_opcion = Convert.ToInt32(item.id_opcion);
+                            listaJsonObj.id_usuarios = Convert.ToInt32(item.id_usuarios);
+                            listaJsonObj.nombre_principal = item.nombre_principal;
+                            listaJsonObj.parent_id_principal = Convert.ToInt32(item.parent_id_principal);
+                            listaJsonObj.urlmagene_principal = item.urlmagene_principal;
+                            listaJsonObj.listMenu = (from w in db.tbl_Aceesos_Evento
+                                                     join od in db.tbl_Definicion_Opciones on w.id_Opcion equals od.id_opcion
+                                                     join u in db.Pub_Usuarios on w.id_Usuario equals u.Pub_Usua_Codigo
+                                                     where u.Pub_Usua_Codigo == objUsuario.Pub_Usua_Codigo && od.parentID == item.id_opcion && od.estado == 1  ///---&& od.TipoInterface == "W"
+                                                     orderby od.orden_Opcion ascending
+                                                     select new
+                                                     {
+                                                         nombre_page = od.nombre_opcion,
+                                                         url_page = od.url_opcion,
+                                                         orden = od.orden_Opcion,
+                                                         od.id_opcion,
+                                                         listMenuItem = (from w3 in db.tbl_Aceesos_Evento
+                                                                         join od3 in db.tbl_Definicion_Opciones on w3.id_Opcion equals od3.id_opcion
+                                                                         join u3 in db.Pub_Usuarios on w3.id_Usuario equals u3.Pub_Usua_Codigo
+                                                                         where u3.Pub_Usua_Codigo == objUsuario.Pub_Usua_Codigo && od3.parentID == od.id_opcion && od3.estado == 1  ///---&& od.TipoInterface == "W"
+                                                                         orderby od3.orden_Opcion ascending
+                                                                         select new
+                                                                         {
+                                                                             nombre_page = od3.nombre_opcion,
+                                                                             url_page = od3.url_opcion,
+                                                                             orden = od3.orden_Opcion,
+                                                                             od3.id_opcion
+                                                                         })
+                                                                        .ToList()
+                                                                        .Distinct()
+                                                })
+                                            .ToList()
+                                            .Distinct();
+
+                            listaAccesos.Add(listaJsonObj);
+                        }
+
+
+
+
+
+
+
+                        listamenu.menuPermisos = listaAccesos;
+                        //listamenu.menuEventos = get_AccesoEventos(objUsuario.id_Usuario);
                         listamenu.id_usuario = objUsuario.Pub_Usua_Codigo;
-                        listamenu.nombre_usuario = objUsuario.Pub_Usua_Nombre; 
-          
+                        listamenu.nombre_usuario = objUsuario.Pub_Usua_Nombre;
+                        //listamenu.id_perfil = objUsuario.id_Perfil;
+
+
+
+
+
 
                         res.ok = true;
                         res.data = listamenu;

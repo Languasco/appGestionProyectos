@@ -53,4 +53,15 @@ export class OrdenCompraAdjuntarService {
   }
 
 
+  set_editarFileOrdenCompra(idFile_ordenCompra:string, tipoDoc:string, nroDoc :string, fecha:string, importe:string  ){
+    let parametros = new HttpParams();
+
+    const importeTotal = (importe.length ==0) ? 0 : importe;
+    parametros = parametros.append('opcion', '8');
+    parametros = parametros.append('filtro',  idFile_ordenCompra + '|' + tipoDoc + '|' + nroDoc + '|' + fecha  + '|' + importeTotal);
+
+    return this.http.get( this.URL + 'OrdenCompraAdjuntar' , { params: parametros });
+  }
+
+
 }

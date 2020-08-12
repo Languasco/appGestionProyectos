@@ -12,6 +12,7 @@ import { CombosService } from '../../../../services/Logistica/Procesos/combos.se
 import { OrdenCompraAdjuntarService } from '../../../../services/Logistica/Procesos/orden-compra-adjuntar.service';
 import { RespuestaServer } from '../../../../models/respuestaServer.models';
 import { AdjuntarFileService } from '../../../../services/Logistica/Procesos/adjuntar-file.service';
+import { combineLatest } from 'rxjs';
 
 
 
@@ -44,7 +45,10 @@ export class OrdenCompraAdjuntarComponent implements OnInit {
   tiposDocumentos:any [] =  [];
   opcionModal='';
   id_OrdenCompraGlobal = "";
+  id_FileOrdenCompraGlobal = "";
+
   ordenesCompraFile:any [] =  [];
+  flagModo_EdicionDet =false;
 
   constructor(private alertasService : AlertasService, private localeService: BsLocaleService, private spinner: NgxSpinnerService, private loginService: LoginService,
               private funcionGlobalServices : FuncionesglobalesService, private combosService:CombosService, private ordenCompraAdjuntarService: OrdenCompraAdjuntarService, private adjuntarFileService: AdjuntarFileService)   {
@@ -74,23 +78,26 @@ export class OrdenCompraAdjuntarComponent implements OnInit {
     this.formParamsFile= new FormGroup({
         nroOc : new FormControl(''),
         tipoDoc : new FormControl('0'),
-        file: new FormControl('')
+        file: new FormControl(''),
+        nroDoc : new FormControl(''),
+        fecha : new FormControl(new Date()),
+        importe : new FormControl(''),
      })
    }
 
  
   getCargarCombos(){ 
     this.spinner.show(); 
-        this.combosService.get_tipoOrdenCompra().subscribe((res:any)=>{ 
-          this.tiposOrdenCompra = res;
-          this.combosService.get_estado().subscribe((res:any)=>{ 
-            this.estados = res;
-            this.combosService.get_tipoDocumento().subscribe((res:any)=>{ 
-              this.spinner.hide(); 
-              this.tiposDocumentos = res;
-            }); 
-          }); 
-        }); 
+
+    //---- combineLatest : combina varios observables, en un array ---
+    //--- la devolucion del subcribe , obtenemos el por medio de la desustructuracion de array
+    combineLatest([this.combosService.get_tipoOrdenCompra(),this.combosService.get_estado(), this.combosService.get_tipoDocumento()])
+   .subscribe(([tipoOrden,estados,tipoDocumento]) =>{
+      this.spinner.hide(); 
+      this.tiposOrdenCompra = tipoOrden;
+      this.estados = estados;
+      this.tiposDocumentos = tipoDocumento;
+    })
   }
 
   mostrarInformacion(){
@@ -128,7 +135,11 @@ export class OrdenCompraAdjuntarComponent implements OnInit {
 
 
   blank(){
+    this.formParamsFile.get('file').enable();
     this.inicializarFormularioArchivos();
+    this.flagModo_EdicionDet= false;
+    this.id_FileOrdenCompraGlobal = '';
+    this.formParamsFile.patchValue({ "nroOc" : this.id_OrdenCompraGlobal });
    }
      
   mostrarOrdenCompraArchivos(){   
@@ -139,9 +150,6 @@ export class OrdenCompraAdjuntarComponent implements OnInit {
     this.ordenesCompraFile = [];
     this.ordenCompraAdjuntarService.get_buscarArchivosOrdenCompra(this.id_OrdenCompraGlobal,this.opcionModal ).subscribe((res:RespuestaServer)=>{
       if (res.ok) { 
-
-        console.log(res.data);
-
          this.ordenesCompraFile = res.data;
       }else{
         this.alertasService.Swal_alert('error', JSON.stringify(res.data));
@@ -153,10 +161,12 @@ export class OrdenCompraAdjuntarComponent implements OnInit {
   abrirModal_Adjuntar(objOrdenCompra :any, opcionModal:string){ 
  
     // const {id_LiquidacionOT, id_OT, id_Proyectista,  OTnumero, NewLiquidacion } = objCancelacion;
-    this.opcionModal = opcionModal;
-    this.blank();
-
     const {idOrdenCompra , nroOC} = objOrdenCompra
+
+    this.id_OrdenCompraGlobal =  idOrdenCompra;
+    this.opcionModal = opcionModal;
+
+    this.blank();
 
     if (opcionModal =='cotizacion') {
       this.tituloModal = "Adjuntar Cotizaciones";
@@ -164,10 +174,6 @@ export class OrdenCompraAdjuntarComponent implements OnInit {
     else if (opcionModal =='documento') {
       this.tituloModal = "Adjuntar Documentos";
     }
-
-    this.id_OrdenCompraGlobal =  idOrdenCompra;
-    this.formParamsFile.patchValue({ "nroOc" : nroOC });
-
     this.mostrarOrdenCompraArchivos();
 
     setTimeout(()=>{ // 
@@ -197,35 +203,82 @@ export class OrdenCompraAdjuntarComponent implements OnInit {
 
   subirArchivo(){
 
-    if (!this.formParamsFile.value.file) {
-      this.alertasService.Swal_alert('error', 'Por favor seleccione el archivo que va a cargar.');
-      return;
-    }  
-    if (this.obtnerArchivoYacargado( this.filesOrdenCompra[0].file.name ) ==true) {
-      this.alertasService.Swal_alert('error', 'El archivo que intenta subir, Ya se encuentra cargado');
-      return;
-    }
+    if (this.flagModo_EdicionDet ==false ){  //// nuevo
 
-  
-    Swal.fire({
-      icon: 'info', allowOutsideClick: false, allowEscapeKey: false, text: 'Espere por favor'
-    })
-    Swal.showLoading(); 
-    this.adjuntarFileService.upload_fileOrdenCompra( this.id_OrdenCompraGlobal, this.formParamsFile.value.nroOc, this.formParamsFile.value.tipoDoc, this.filesOrdenCompra[0].file , this.opcionModal, this.idUserGlobal).subscribe(
-      (res:RespuestaServer) =>{
+      let fechaImpor = null;
+      if (this.opcionModal =='documento') {
+ 
+       if (this.formParamsFile.value.tipoDoc == '' || this.formParamsFile.value.tipoDoc == 0 || this.formParamsFile.value.tipoDoc == null)  {
+         this.alertasService.Swal_alert('error', 'Seleccione el Tipo de documento.');
+         return 
+       } 
+ 
+       if (this.formParamsFile.value.fecha == '' || this.formParamsFile.value.fecha == 0 || this.formParamsFile.value.fecha == null)  {
+         this.alertasService.Swal_alert('error', 'Seleccione la fecha por favor.');
+         return 
+       }  
+       fechaImpor = this.funcionGlobalServices.formatoFechaIngles(this.funcionGlobalServices.formatoFecha(this.formParamsFile.value.fecha)) 
+     }
+ 
+ 
+     if (!this.formParamsFile.value.file) {
+       this.alertasService.Swal_alert('error', 'Por favor seleccione el archivo que va a cargar.');
+       return;
+     }  
+     if (this.obtnerArchivoYacargado( this.filesOrdenCompra[0].file.name ) ==true) {
+       this.alertasService.Swal_alert('error', 'El archivo que intenta subir, Ya se encuentra cargado');
+       return;
+     }
+    
+     Swal.fire({
+       icon: 'info', allowOutsideClick: false, allowEscapeKey: false, text: 'Espere por favor'
+     })
+     Swal.showLoading(); 
+
+     this.adjuntarFileService.upload_fileOrdenCompra( this.id_OrdenCompraGlobal, this.formParamsFile.value.nroOc, this.formParamsFile.value.tipoDoc, this.filesOrdenCompra[0].file , this.opcionModal, this.idUserGlobal, this.formParamsFile.value.nroDoc, fechaImpor, this.formParamsFile.value.importe  ).subscribe(
+       (res:RespuestaServer) =>{
+         Swal.close();
+         if (res.ok==true) { 
+            this.alertasService.Swal_Success('Proceso de carga realizado correctamente..');
+            this.blank();
+            this.mostrarOrdenCompraArchivos();
+         }else{
+           alert(JSON.stringify(res.data)); 
+         }
+         },(err) => {
+           Swal.close();
+           alert(JSON.stringify(err.data));
+         }
+     );  
+     
+    }else{ /// editar los campos      
+
+      if (this.id_FileOrdenCompraGlobal == '' ||   this.id_FileOrdenCompraGlobal == null)  {
+        this.alertasService.Swal_alert('error', 'No se cargo correctamente el ID del documento, actualice su pagina.');
+        return 
+      } 
+
+     const fechaImpor =  this.funcionGlobalServices.formatoFechaIngles(this.funcionGlobalServices.formatoFecha(this.formParamsFile.value.fecha)); ///this.funcionGlobalServices.formatoFecha(this.formParamsFile.value.fecha);  
+ 
+      Swal.fire({
+        icon: 'info', allowOutsideClick: false, allowEscapeKey: false, text: 'Espere por favor'
+      })
+      Swal.showLoading();
+      this.ordenCompraAdjuntarService.set_editarFileOrdenCompra(this.id_FileOrdenCompraGlobal, this.formParamsFile.value.tipoDoc, this.formParamsFile.value.nroDoc, fechaImpor, this.formParamsFile.value.importe ).subscribe((res:RespuestaServer)=>{
         Swal.close();
-        if (res.ok==true) { 
-           this.alertasService.Swal_Success('Proceso de carga realizado correctamente..');
+        console.log(res);
+        if (res.ok) { 
+           this.alertasService.Swal_Success("Actualizacion realizado correctamente..");
            this.blank();
            this.mostrarOrdenCompraArchivos();
         }else{
-          alert(JSON.stringify(res.data)); 
+          this.alertasService.Swal_alert('error', JSON.stringify(res.data));
+          alert(JSON.stringify(res.data));
         }
-        },(err) => {
-          Swal.close();
-          alert(JSON.stringify(err.data));
-        }
-    );  
+      })
+
+    }
+
    }
 
    obtnerArchivoYacargado(nombreArchivo:string){  
@@ -238,11 +291,8 @@ export class OrdenCompraAdjuntarComponent implements OnInit {
     }  
     
     return flagRepetida;
-  }
-  
-
-
-    
+   }
+      
   eliminarFileSeleccionado(item:any){    
   
     Swal.fire({
@@ -262,7 +312,6 @@ export class OrdenCompraAdjuntarComponent implements OnInit {
       }
     })
   }
-
     
   descargarArchivoSeleccionado(id_Log_OCom_Documento:string){    
     Swal.fire({
@@ -283,8 +332,18 @@ export class OrdenCompraAdjuntarComponent implements OnInit {
     })
   }
 
-
- 
-
+  editarFileSeleccionado(objliq:any){    
+    this.formParamsFile.patchValue({
+        "file" : '',
+        "tipoDoc" : objliq.id_TipoArchivo ,
+        "nroDoc" : objliq.Log_OCom_NroDoc ,
+        "fecha" : new Date(objliq.Log_OCom_FechaDoc), 
+        "importe" : objliq.Log_OCom_ImporteDoc  
+    });
+    
+    this.id_FileOrdenCompraGlobal = objliq.id_Log_OCom_Documento;
+    this.flagModo_EdicionDet= true;
+    this.formParamsFile.get('file').disable();
+  }
 
 }

@@ -1,6 +1,7 @@
 <br>
 <div class="row">
-    <div class="container text-center">
+
+    <!-- <div class="container text-center">
         <div class="card-group">
             <div class="card  shadow   animated fadeIn" style="margin:2px">
                 <a class="stretched-link" [routerLink]="['/orden-compra-adjuntar']">
@@ -28,12 +29,26 @@
                 </a>
                 <div class="card-body">
                     <div class="">
-                        <!-- <h5> <a [routerLink]="['/anuncios',categoria.id_Categoria]">{{categoria.nombre_Categoria}}  </a> </h5> -->
                         <h5 style="color:black"> INSPECCIONES DE SEGURIDAD </h5>
                     </div>
                 </div>
             </div>
         </div>
+    </div> -->
 
+    <div class="container text-center">
+        <div class="card-group">
+            <div class="card  shadow   animated fadeIn" style="margin:2px" *ngFor="let modulo of modulos">
+                <a class="stretched-link puntero" (click)="mostrando_MenuModulo(modulo)">
+                    <img [src]="modulo.urlmagene_principal" style="  width: 95%;" class="card-img-top  mt-2" alt="...">
+                </a>
+                <div class="card-body">
+                    <div class="">
+                        <h5 style="color:black !important"> {{ modulo.nombre_principal }} </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
 </div>

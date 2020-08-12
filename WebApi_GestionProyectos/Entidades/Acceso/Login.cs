@@ -11,8 +11,6 @@ namespace Entidades.Acceso
         public object listMenu { get; set; }
     }
 
-
-
     public class MenuPermisos
     {
         public int id_opcion  { get; set; }

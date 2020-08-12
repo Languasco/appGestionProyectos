@@ -11,7 +11,7 @@ namespace Negocio.Uploads
 {
     public class Upload_BL
     {        
-        public int crear_archivoOrdenCompra( string idOrdenCompra, string nroOc, string tipoDoc, string opcionModal,string nombreArchivo)
+        public int crear_archivoOrdenCompra( string idOrdenCompra, string nroOc, string tipoDoc, string opcionModal,string nombreArchivo, string nroDoc, string fecha, string importe)
         {
             int resultado = 0;
             try
@@ -28,6 +28,11 @@ namespace Negocio.Uploads
                         cmd.Parameters.Add("@tipoDoc", SqlDbType.VarChar).Value = tipoDoc;
                         cmd.Parameters.Add("@opcionImportacion", SqlDbType.Int).Value = (opcionModal == "cotizacion") ? 1 : 2 ;
                         cmd.Parameters.Add("@nombreArchivo", SqlDbType.VarChar).Value = nombreArchivo;
+
+                        cmd.Parameters.Add("@nroDoc", SqlDbType.VarChar).Value = nroDoc;
+                        cmd.Parameters.Add("@fecha", SqlDbType.VarChar).Value = fecha;
+                        cmd.Parameters.Add("@importe", SqlDbType.VarChar).Value = importe;
+
                         cmd.Parameters.Add("@name_bd", SqlDbType.Int).Direction = ParameterDirection.Output;
 
                         cmd.ExecuteNonQuery();

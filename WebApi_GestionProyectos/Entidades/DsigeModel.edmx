@@ -73,9 +73,44 @@
           <Property Name="Pub_Usua_Obs" Type="varchar" MaxLength="100" />
           <Property Name="pub_dni" Type="varchar" MaxLength="20" />
         </EntityType>
+        <EntityType Name="tbl_Aceesos_Evento">
+          <Key>
+            <PropertyRef Name="id_Acceso_evento" />
+          </Key>
+          <Property Name="id_Acceso_evento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_Opcion" Type="int" />
+          <Property Name="id_Usuario" Type="varchar" MaxLength="6" />
+          <Property Name="id_Evento" Type="int" />
+          <Property Name="estado" Type="int" />
+          <Property Name="usuario_creacion" Type="int" />
+          <Property Name="fecha_creacion" Type="datetime" />
+          <Property Name="usuario_edicion" Type="int" />
+          <Property Name="fecha_edicion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_Definicion_Opciones">
+          <Key>
+            <PropertyRef Name="id_opcion" />
+          </Key>
+          <Property Name="id_opcion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_opcion" Type="varchar" MaxLength="150" />
+          <Property Name="url_opcion" Type="varchar" MaxLength="150" />
+          <Property Name="parentID" Type="int" />
+          <Property Name="nombreParentID" Type="varchar" MaxLength="150" />
+          <Property Name="urlImagen_Opcion" Type="varchar" MaxLength="150" />
+          <Property Name="orden_Opcion" Type="int" />
+          <Property Name="estado" Type="int" />
+          <Property Name="usuario_creacion" Type="int" />
+          <Property Name="fecha_creacion" Type="datetime" />
+          <Property Name="usuario_edicion" Type="int" />
+          <Property Name="fecha_edicion" Type="datetime" />
+          <Property Name="interface_Opcion" Type="int" />
+          <Property Name="TipoInterface" Type="varchar" MaxLength="2" />
+        </EntityType>
         <EntityContainer Name="MFSoft_Base_PIModelStoreContainer">
           <EntitySet Name="Alm_Articulo" EntityType="Self.Alm_Articulo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pub_Usuarios" EntityType="Self.Pub_Usuarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Aceesos_Evento" EntityType="Self.tbl_Aceesos_Evento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Definicion_Opciones" EntityType="Self.tbl_Definicion_Opciones" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -130,6 +165,8 @@
         <EntityContainer Name="DsigeProyectosEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Alm_Articulo" EntityType="Self.Alm_Articulo" />
           <EntitySet Name="Pub_Usuarios" EntityType="MFSoft_Base_PIModel.Pub_Usuarios" />
+          <EntitySet Name="tbl_Aceesos_Evento" EntityType="MFSoft_Base_PIModel.tbl_Aceesos_Evento" />
+          <EntitySet Name="tbl_Definicion_Opciones" EntityType="MFSoft_Base_PIModel.tbl_Definicion_Opciones" />
         </EntityContainer>
         <EntityType Name="Pub_Usuarios">
           <Key>
@@ -152,6 +189,39 @@
           <Property Name="Pub_Area_Codigo" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
           <Property Name="Pub_Usua_Obs" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="pub_dni" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbl_Aceesos_Evento">
+          <Key>
+            <PropertyRef Name="id_Acceso_evento" />
+          </Key>
+          <Property Name="id_Acceso_evento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_Opcion" Type="Int32" />
+          <Property Name="id_Usuario" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="id_Evento" Type="Int32" />
+          <Property Name="estado" Type="Int32" />
+          <Property Name="usuario_creacion" Type="Int32" />
+          <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
+          <Property Name="usuario_edicion" Type="Int32" />
+          <Property Name="fecha_edicion" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_Definicion_Opciones">
+          <Key>
+            <PropertyRef Name="id_opcion" />
+          </Key>
+          <Property Name="id_opcion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_opcion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="url_opcion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="parentID" Type="Int32" />
+          <Property Name="nombreParentID" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="urlImagen_Opcion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="orden_Opcion" Type="Int32" />
+          <Property Name="estado" Type="Int32" />
+          <Property Name="usuario_creacion" Type="Int32" />
+          <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
+          <Property Name="usuario_edicion" Type="Int32" />
+          <Property Name="fecha_edicion" Type="DateTime" Precision="3" />
+          <Property Name="interface_Opcion" Type="Int32" />
+          <Property Name="TipoInterface" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -225,6 +295,41 @@
                 <ScalarProperty Name="Pub_Usua_Login" ColumnName="Pub_Usua_Login" />
                 <ScalarProperty Name="Pub_Usua_Codigo" ColumnName="Pub_Usua_Codigo" />
                 <ScalarProperty Name="Pub_Usua_Nombre" ColumnName="Pub_Usua_Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Aceesos_Evento">
+            <EntityTypeMapping TypeName="MFSoft_Base_PIModel.tbl_Aceesos_Evento">
+              <MappingFragment StoreEntitySet="tbl_Aceesos_Evento">
+                <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="id_Evento" ColumnName="id_Evento" />
+                <ScalarProperty Name="id_Usuario" ColumnName="id_Usuario" />
+                <ScalarProperty Name="id_Opcion" ColumnName="id_Opcion" />
+                <ScalarProperty Name="id_Acceso_evento" ColumnName="id_Acceso_evento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Definicion_Opciones">
+            <EntityTypeMapping TypeName="MFSoft_Base_PIModel.tbl_Definicion_Opciones">
+              <MappingFragment StoreEntitySet="tbl_Definicion_Opciones">
+                <ScalarProperty Name="TipoInterface" ColumnName="TipoInterface" />
+                <ScalarProperty Name="interface_Opcion" ColumnName="interface_Opcion" />
+                <ScalarProperty Name="fecha_edicion" ColumnName="fecha_edicion" />
+                <ScalarProperty Name="usuario_edicion" ColumnName="usuario_edicion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="usuario_creacion" ColumnName="usuario_creacion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="orden_Opcion" ColumnName="orden_Opcion" />
+                <ScalarProperty Name="urlImagen_Opcion" ColumnName="urlImagen_Opcion" />
+                <ScalarProperty Name="nombreParentID" ColumnName="nombreParentID" />
+                <ScalarProperty Name="parentID" ColumnName="parentID" />
+                <ScalarProperty Name="url_opcion" ColumnName="url_opcion" />
+                <ScalarProperty Name="nombre_opcion" ColumnName="nombre_opcion" />
+                <ScalarProperty Name="id_opcion" ColumnName="id_opcion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

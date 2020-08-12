@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
+import { RespuestaServer } from '../../../models/respuestaServer.models';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -20,40 +21,28 @@ export class OrdenCompraAprobarService {
   constructor(private http:HttpClient) { }
 
 
-  get_mostrarOrdenesCompra_AprobarCab(  nroOc:string) { 
-    let parametros = new HttpParams();
+  get_mostrarOrdenesCompra_AprobarCab(  nroOc:string, idUsuario :string) { 
+     let parametros = new HttpParams();
     parametros = parametros.append('opcion', '1');
-    parametros = parametros.append('filtro', nroOc );
-
-    return this.http.get( this.URL + 'OrdenCompraAdjuntar' , {params: parametros});
+    parametros = parametros.append('filtro', String(nroOc) + '|' + idUsuario);
+    return this.http.get( this.URL + 'OrdenCompraAprobar' , {params: parametros});
   }
 
-  
-  get_buscarArchivosOrdenCompra(idOrdenCompra:string, opcionModal:string ) { 
+  get_mostrarOrdenesCompra_AprobarDet(  idOrdenCompra:string, idUsuario :string) { 
     let parametros = new HttpParams();
-    parametros = parametros.append('opcion', '5');
-    parametros = parametros.append('filtro', idOrdenCompra +'|'+  opcionModal );
+   parametros = parametros.append('opcion', '2');
+   parametros = parametros.append('filtro', String(idOrdenCompra) + '|' + idUsuario);
+   return this.http.get<RespuestaServer>( this.URL + 'OrdenCompraAprobar' , {params: parametros});
+ }
 
-    return this.http.get( this.URL + 'OrdenCompraAdjuntar' , {params: parametros});
-  }
-
-  set_anularFileOrdenCompra(id_Log_OCom_Documento:string){
-    let parametros = new HttpParams();
-    parametros = parametros.append('opcion', '6');
-    parametros = parametros.append('filtro',  id_Log_OCom_Documento );
-
-    return this.http.get( this.URL + 'OrdenCompraAdjuntar' , { params: parametros });
-  }
-
-  get_descargarFileOrdenCompra(id_Log_OCom_Documento:string, idUser:string){
-    let parametros = new HttpParams();
-    parametros = parametros.append('opcion', '7');
-    parametros = parametros.append('filtro',  id_Log_OCom_Documento + '|'+ idUser );
-
-    console.log(parametros)
-
-    return this.http.get( this.URL + 'OrdenCompraAdjuntar' , {params: parametros});
-  }
-
+ 
+ set_aprobarRechazarOrdenCompra( idOrdenCompra:string, observacion :string, estadoOrdenCompra :string, idUsuario :string) { 
+  let parametros = new HttpParams();
+   parametros = parametros.append('opcion', '3');
+   parametros = parametros.append('filtro', String(idOrdenCompra) + '|' + observacion + '|' + estadoOrdenCompra  + '|' + idUsuario);
+   return this.http.get<RespuestaServer>( this.URL + 'OrdenCompraAprobar' , {params: parametros});
+}
+ 
+ 
 
 }

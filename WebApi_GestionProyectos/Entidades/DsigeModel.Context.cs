@@ -27,5 +27,7 @@ namespace Entidades
     
         public virtual DbSet<Alm_Articulo> Alm_Articulo { get; set; }
         public virtual DbSet<Pub_Usuarios> Pub_Usuarios { get; set; }
+        public virtual DbSet<tbl_Aceesos_Evento> tbl_Aceesos_Evento { get; set; }
+        public virtual DbSet<tbl_Definicion_Opciones> tbl_Definicion_Opciones { get; set; }
     }
 }

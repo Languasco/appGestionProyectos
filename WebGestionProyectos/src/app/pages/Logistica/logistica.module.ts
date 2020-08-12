@@ -4,7 +4,7 @@ import { OrdenCompraAdjuntarComponent } from './Procesos/orden-compra-adjuntar/o
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { OrdenCompraAprobarComponent } from './Procesos/orden-compra-aprobar/orden-compra-aprobar.component'; 
-
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   declarations: [
@@ -16,6 +16,7 @@ import { OrdenCompraAprobarComponent } from './Procesos/orden-compra-aprobar/ord
     FormsModule,
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
+    Ng2SearchPipeModule
   ],
   exports:[
     OrdenCompraAdjuntarComponent

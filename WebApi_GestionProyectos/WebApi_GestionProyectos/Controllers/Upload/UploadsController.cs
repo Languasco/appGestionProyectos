@@ -37,11 +37,16 @@ namespace WebApi_GestionProyectos.Controllers.Upload
                 string idOrdenCompra = parametros[0].ToString();
                 string nroOc = parametros[1].ToString();
                 string tipoDoc = parametros[2].ToString();
+
                 string opcionModal = parametros[3].ToString();
                 string idUsuario = parametros[4].ToString();
 
+                string nroDoc = parametros[5].ToString();
+                string fecha = parametros[6].ToString();
+                string importe = parametros[7].ToString();
+
                 Upload_BL obj_negocios = new Upload_BL();
-                nombreFileBD = obj_negocios.crear_archivoOrdenCompra(idOrdenCompra, nroOc, tipoDoc, opcionModal, file.FileName );
+                nombreFileBD = obj_negocios.crear_archivoOrdenCompra(idOrdenCompra, nroOc, tipoDoc, opcionModal, file.FileName , nroDoc, fecha, importe);
 
                 //-------almacenando la archivo---
                 sPath = HttpContext.Current.Server.MapPath("~/Archivos/OrdenCompra/" + nombreFileBD);

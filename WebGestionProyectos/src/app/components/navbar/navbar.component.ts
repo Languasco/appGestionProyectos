@@ -24,15 +24,19 @@ export class NavbarComponent implements OnInit {
     this.loginService.isLogginUser$.subscribe(obj => {
       this.showMenu = obj.status;
       this.nameUser = this.loginService.getSessionNombre();
-      this.menuPrincipal = obj.menu;
     }); 
+
+    this.loginService.moduloSeleccionado$.subscribe(idmodulo => {
+      this.menuModulo(idmodulo);
+    })
   }
 
   ngOnInit(): void {
-    // this.loginService.leerSesion();
+    //this.loginService.leerSesion();
     this.showMenu = this.loginService.getSession();
-    this.nameUser = this.loginService.getSessionNombre();
-    this.menuPrincipal =  this.loginService.getSessionMenu();
+    this.nameUser = this.loginService.getSessionNombre();    
+    const idModulo = this.loginService.getIdModulo();    
+    this.menuModulo(idModulo);
   }
  
   cerrarSesion(){
@@ -46,4 +50,17 @@ export class NavbarComponent implements OnInit {
   downloadApk(){
     window.open('./assets/apk/applus.apk');    
   }
+  
+  menuModulo(idmodulo :number){
+    const menu =  this.loginService.getMenu_Modulos(idmodulo);
+    if (menu) {
+      this.menuPrincipal  = menu[0]; 
+    }
+  }
+  
+  regresarHome(){
+    this.menuPrincipal = [];
+    this.router.navigateByUrl('/home');
+  }
+
 }

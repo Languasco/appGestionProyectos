@@ -20,7 +20,6 @@ export class LoginComponent implements OnInit {
   constructor( private alertasService :AlertasService, private spinner: NgxSpinnerService, private loginService : LoginService, private router:Router) { 
     this.loginService.isLogginUser$.subscribe(obj => {
       this.showMenu = obj.status;
-      console.log('entroo')
      });      
   }
 
@@ -49,8 +48,7 @@ export class LoginComponent implements OnInit {
 
     this.spinner.show();
     this.loginService.get_iniciarSesion(this.formParams.value.usuario, this.formParams.value.contrasenia.trim())
-        .subscribe((res:any)=>{
- 
+        .subscribe((res:any)=>{ 
           this.spinner.hide();
           if (res.ok==true) {               
              this.router.navigateByUrl('/home');

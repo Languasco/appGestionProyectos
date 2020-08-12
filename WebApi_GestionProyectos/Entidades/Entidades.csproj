@@ -54,6 +54,7 @@
     <Compile Include="Alm_Articulo.cs">
       <DependentUpon>DsigeModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ControlObras\Procesos\BandejaAtencion_E.cs" />
     <Compile Include="DsigeModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -73,6 +74,12 @@
     <Compile Include="Logistica\Procesos\OrdenCompraCab_E.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Pub_Usuarios.cs">
+      <DependentUpon>DsigeModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_Aceesos_Evento.cs">
+      <DependentUpon>DsigeModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_Definicion_Opciones.cs">
       <DependentUpon>DsigeModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>

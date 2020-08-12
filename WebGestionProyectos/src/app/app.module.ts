@@ -16,13 +16,9 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 ////------ peticiones http
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-
 // pipe
 import { NoimagePipe } from './pipes/noimage.pipe';
- 
-import { AppComponent } from './app.component';
-import { HomeComponent } from './pages/home/home.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
+
 import { SpinnerloadingComponent } from './components/spinnerloading/spinnerloading.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
  
@@ -33,10 +29,19 @@ import { BsDatepickerModule, BsLocaleService, BsDatepickerConfig } from 'ngx-boo
  import * as locales from 'ngx-bootstrap/locale';
  import { defineLocale } from 'ngx-bootstrap/chronos';
 
-
 import { LightboxModule } from 'ngx-lightbox';
+
+///---importando todos los componente del modulo de logistica -----
 import { LogisticaModule } from './pages/Logistica/logistica.module';
+
+///---importando todos los componente del modulo de Control de obras -----
+import { ControlObraModule } from './pages/ControlObras/control-obra.module';
+
+import { AppComponent } from './app.component';
+import { HomeComponent } from './pages/home/home.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './pages/login/login.component';
+import { HomeModuloComponent } from './pages/home-modulo/home-modulo.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +50,8 @@ import { LoginComponent } from './pages/login/login.component';
     NavbarComponent,
     SpinnerloadingComponent,
     NoimagePipe,
-    LoginComponent,    
+    LoginComponent,
+    HomeModuloComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +64,8 @@ import { LoginComponent } from './pages/login/login.component';
     BsDatepickerModule.forRoot(),
     InfiniteScrollModule,
     LightboxModule,
-    LogisticaModule
+    LogisticaModule,
+    ControlObraModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

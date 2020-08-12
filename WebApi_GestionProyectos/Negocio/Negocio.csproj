@@ -55,6 +55,7 @@
     <Compile Include="Acceso\Login_BL.cs" />
     <Compile Include="Conexion\bdConexion.cs" />
     <Compile Include="Conexion\ConexionExcel.cs" />
+    <Compile Include="ControlObras\Procesos\BandejaAtencion_BL.cs" />
     <Compile Include="Logistisca\Proceso\OrdenCompraAdjuntar_BL.cs" />
     <Compile Include="Logistisca\Proceso\OrdenCompraAprobar_BL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -50,7 +50,7 @@
         <hr style="  margin-top: 3px;">
         <div class="search-results tableFixHead">
             <table class="table  table-bordered table-hover table-sm">
-                <thead class="theadTable">
+                <thead class="theadTable thead-dark">
                     <tr style="height: 40px !important;">
                         <th scope="col">#</th>
                         <th scope="col">Tipo OC</th>
@@ -132,13 +132,31 @@
                                     <input type="text" class="form-control disabledForm" style="width: 120px !important;" formControlName="nroOc">
                                 </div>
                             </div>
-                            <div class="row" *ngIf="opcionModal ==='documento' ">
-                                <div class="col-md-8">
-                                    <label> Tipo de Documento</label>
-                                    <select class="form-control comboBox" formControlName="tipoDoc">
-                                            <option value="0"> [ -- TODOS -- ]</option>
-                                             <option [value]="item.pub_tido_codigo" *ngFor="let item of tiposDocumentos">{{item.pub_tido_descripcion}}</option> 
-                                    </select>
+
+                            <div *ngIf="opcionModal ==='documento' ">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <label> Tipo de Documento</label>
+                                        <select class="form-control comboBox" formControlName="tipoDoc">
+                                                <option value="0"> [ -- SELECCIONE -- ]</option>
+                                                 <option [value]="item.pub_tido_codigo" *ngFor="let item of tiposDocumentos">{{item.pub_tido_descripcion}}</option> 
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label> Nro de Documento</label>
+                                        <input type="text" class="form-control " formControlName="nroDoc">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label> Fecha</label>
+                                        <input class="form-control" #datepickerYMD="bsDatepicker" bsDatepicker formControlName="fecha" [bsConfig]="datepiekerConfig">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label> Importe Total</label>
+                                        <input type="number" class="form-control " formControlName="importe">
+                                    </div>
                                 </div>
                             </div>
                             <hr>
@@ -149,8 +167,8 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4 pt-1 text-center">
-                                    <button class="btn btn-sm btn-success" (click)="subirArchivo()">  <i class="fas fa-eye"> cargar</i> </button>
-                                    <button class="btn btn-sm btn-warning" (click)="blank()">  <i class="fa fa-plus-circle"> Nuevo</i> </button>
+                                    <button class="btn btn-sm btn-success" (click)="subirArchivo()">  <i class="fas fa-eye"> Grabar</i> </button>
+                                    <button class="btn btn-sm btn-warning ml-2" (click)="blank()">  <i class="fa fa-plus-circle"> Nuevo</i> </button>
                                 </div>
                             </div>
                         </form>
@@ -162,6 +180,7 @@
                                         <th scope="col">#</th>
                                         <th scope="col">Tipo Documento</th>
                                         <th scope="col">Nombre Archivos</th>
+                                        <th class="text-center" *ngIf="opcionModal ==='documento' ">Editar</th>
                                         <th class="text-center">Eliminar</th>
                                         <th class="text-center">Descargar</th>
                                     </tr>
@@ -171,6 +190,9 @@
                                         <th scope="row"> {{i + 1}} </th>
                                         <td>{{item.tipoDocumento}}</td>
                                         <td>{{item.Log_OCom_Nombre}}</td>
+                                        <td class="text-center" *ngIf="opcionModal ==='documento' ">
+                                            <a class="puntero linkOpcion" (click)=" editarFileSeleccionado(item) " title="quitar el registro"> Editar</a>
+                                        </td>
                                         <td class="text-center">
                                             <a class="puntero linkOpcion" (click)=" eliminarFileSeleccionado(item) " title="quitar el registro"> Eliminar</a>
                                         </td>

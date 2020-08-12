@@ -16,7 +16,8 @@ export class LoginService {
   usuarioLogeado:boolean=false;
   dataLogeado= [];
   isLogginUser$ = new Subject<any>();
-
+  moduloSeleccionado$ = new Subject<number>();
+  idModulo=0;
 
    URL = environment.URL_API;
    constructor(private http:HttpClient) {
@@ -45,7 +46,7 @@ export class LoginService {
                         id_usuario:res.data.id_usuario,                        
                         nombre_usuario : res.data.nombre_usuario,
                         // id_perfil:res.data.id_perfil,
-                        // menu_permisos : res.data.menuPermisos,
+                         menu_permisos : res.data.menuPermisos,
                         // menu_eventos : res.data.menuEventos
                       }                      
                       this.guardarSesion(infoUser);
@@ -79,6 +80,7 @@ export class LoginService {
   logOut(){
     this.usuarioLogeado= false;
     localStorage.removeItem('data_GestionProyectos_usuario');
+    localStorage.removeItem('GestionProyectos_idModulo');
   }
 
   getSession(){
@@ -136,6 +138,45 @@ export class LoginService {
       return listEventos
     }else{
       return null;
+    }
+  }
+
+  getModulos(){ 
+    if (localStorage.getItem('data_GestionProyectos_usuario')) { 
+      const listModulos = this.dataLogeado['menu_permisos'].map(modulo =>{
+          return  { id_opcion : modulo.id_opcion, nombre_principal:  modulo.nombre_principal , urlmagene_principal : modulo.urlmagene_principal}
+      });
+      return listModulos ;
+    }else{
+      return null;
+    }
+  }
+
+  getMenu_Modulos(idModulo){ 
+    if (localStorage.getItem('data_GestionProyectos_usuario')) {  
+      
+      //-----almacenando el idModulo elegido ---
+      localStorage.setItem('GestionProyectos_idModulo', idModulo );
+      //----- Fin almacenando el idModulo elegido ---
+    
+      const listMenus =  this.dataLogeado['menu_permisos'].filter(modulo => modulo.id_opcion == idModulo).map( menuItem => menuItem['listMenu'] )    ;
+      return listMenus ;
+
+    }else{
+
+      this.idModulo = 0;
+      return null;
+      
+    }
+  }
+
+  getIdModulo(){
+    if (localStorage.getItem('GestionProyectos_idModulo')) {  
+      this.idModulo = JSON.parse(localStorage.getItem("GestionProyectos_idModulo"));
+      return this.idModulo ;
+    }else{
+      this.idModulo = 0;
+      return this.idModulo ;
     }
   }
 

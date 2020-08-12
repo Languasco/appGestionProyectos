@@ -290,6 +290,42 @@ namespace Negocio.Logistisca.Proceso
             }
             return ruta_descarga;
         }
-        
+
+
+        public object set_EditandoFile_ordenCompra(string idFileOrdenCompra, string tipoDoc, string nroDoc, string fecha, string importe)
+        {
+            Resultado res = new Resultado();
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(Conexion.bdConexion.cadenaBDcx()))
+                {
+                    cn.Open();
+                    using (SqlCommand cmd = new SqlCommand("DSIGE_PROY_W_ORDENCOMPRA_ADJUNTAR_EDITAR", cn))
+                    {
+                        cmd.CommandTimeout = 0;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@idFileOrdenCompra", SqlDbType.VarChar).Value = idFileOrdenCompra;
+                        cmd.Parameters.Add("@tipoDoc", SqlDbType.VarChar).Value = tipoDoc;
+                        cmd.Parameters.Add("@nroDoc", SqlDbType.VarChar).Value = nroDoc;
+                        cmd.Parameters.Add("@fecha", SqlDbType.VarChar).Value = fecha;
+                        cmd.Parameters.Add("@importe", SqlDbType.VarChar).Value = importe;
+                        cmd.ExecuteNonQuery();
+
+                        res.ok = true;
+                        res.data = "OK";
+                        res.totalpage = 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                res.ok = false;
+                res.data = ex.Message;
+            }
+            return res;
+        }
+
+
+
     }
 }
