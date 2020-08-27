@@ -11,6 +11,11 @@ label {
 
 .form-control,
 input {
+    font-family: 'Montserrat', sans-serif !important;
+}
+
+.form-control,
+input {
     font-family: tahoma;
     font-size: 12px;
     height: 28px;
