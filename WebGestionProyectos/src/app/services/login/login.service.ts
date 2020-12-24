@@ -17,6 +17,7 @@ export class LoginService {
   dataLogeado= [];
   isLogginUser$ = new Subject<any>();
   moduloSeleccionado$ = new Subject<number>();
+  homeSeleccionado$ = new Subject<boolean>();
   idModulo=0;
 
    URL = environment.URL_API;

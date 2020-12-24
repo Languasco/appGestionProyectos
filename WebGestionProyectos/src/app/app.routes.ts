@@ -6,6 +6,9 @@ import { OrdenCompraAdjuntarComponent } from './pages/Logistica/Procesos/orden-c
 import { OrdenCompraAprobarComponent } from './pages/Logistica/Procesos/orden-compra-aprobar/orden-compra-aprobar.component';
 import { HomeModuloComponent } from './pages/home-modulo/home-modulo.component';
 import { BandejaAtencionComponent } from './pages/ControlObras/Procesos/bandeja-atencion/bandeja-atencion.component';
+import { SolicitudPedidoCompraComponent } from './pages/Logistica/Procesos/solicitud-pedido-compra/solicitud-pedido-compra.component';
+import { SolicitudOrdenCompraComponent } from './pages/Logistica/Procesos/solicitud-orden-compra/solicitud-orden-compra.component';
+ 
  
 const APP_ROUTERS: Routes = [
     { path: 'login', component: LoginComponent},  
@@ -16,6 +19,9 @@ const APP_ROUTERS: Routes = [
     { path: 'orden-compra-aprobar', component: OrdenCompraAprobarComponent, canActivate: [ AuthGuard] },  
     // Control de obras
     { path: 'BandejaAtencion', component: BandejaAtencionComponent, canActivate: [ AuthGuard] },  
+
+    { path: 'proceso-solicitud-pedido-compra', component: SolicitudPedidoCompraComponent, canActivate: [ AuthGuard] },  
+    { path: 'proceso-solicitud-orden-compra', component: SolicitudOrdenCompraComponent, canActivate: [ AuthGuard] },  
 
     { path: '', pathMatch:'full', redirectTo:'home' },
     { path: '**', pathMatch:'full', redirectTo:'home' },

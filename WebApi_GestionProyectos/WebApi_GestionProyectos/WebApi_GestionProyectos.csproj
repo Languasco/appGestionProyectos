@@ -205,6 +205,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Logistica\Procesos\OrdenCompraAdjuntarController.cs" />
     <Compile Include="Controllers\Logistica\Procesos\OrdenCompraAprobarController.cs" />
+    <Compile Include="Controllers\Logistica\Procesos\SolicitudOrdenCompraController.cs" />
+    <Compile Include="Controllers\Logistica\Procesos\SolicitudPedidoCompraController.cs" />
     <Compile Include="Controllers\Upload\UploadsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">

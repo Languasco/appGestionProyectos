@@ -103,13 +103,13 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>01/04/2016 05:14:48</publishTime>
     </File>
     <File Include="bin/Entidades.dll">
-      <publishTime>08/10/2020 09:23:29</publishTime>
+      <publishTime>12/11/2020 10:16:06</publishTime>
     </File>
     <File Include="bin/Entidades.dll.config">
       <publishTime>07/20/2020 16:32:47</publishTime>
     </File>
     <File Include="bin/Entidades.pdb">
-      <publishTime>08/10/2020 09:23:29</publishTime>
+      <publishTime>12/11/2020 10:16:06</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>03/15/2020 23:13:05</publishTime>
@@ -169,10 +169,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>03/15/2020 23:13:05</publishTime>
     </File>
     <File Include="bin/Negocio.dll">
-      <publishTime>08/12/2020 09:43:43</publishTime>
+      <publishTime>12/11/2020 10:16:07</publishTime>
     </File>
     <File Include="bin/Negocio.pdb">
-      <publishTime>08/12/2020 09:43:43</publishTime>
+      <publishTime>12/11/2020 10:16:07</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>03/15/2020 23:13:05</publishTime>
@@ -361,10 +361,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>03/15/2020 23:13:05</publishTime>
     </File>
     <File Include="bin/WebApi_GestionProyectos.dll">
-      <publishTime>08/12/2020 09:51:02</publishTime>
+      <publishTime>12/11/2020 10:16:07</publishTime>
     </File>
     <File Include="bin/WebApi_GestionProyectos.pdb">
-      <publishTime>08/12/2020 09:51:02</publishTime>
+      <publishTime>12/11/2020 10:16:07</publishTime>
     </File>
     <File Include="bin/WebApi_GoRelax.dll">
       <publishTime>01/01/0001 00:00:00</publishTime>
@@ -493,7 +493,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>03/15/2020 23:13:04</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>08/12/2020 09:43:44</publishTime>
+      <publishTime>12/10/2020 11:12:48</publishTime>
     </File>
   </ItemGroup>
 </Project>

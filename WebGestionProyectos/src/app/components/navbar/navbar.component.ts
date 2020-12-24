@@ -29,6 +29,12 @@ export class NavbarComponent implements OnInit {
     this.loginService.moduloSeleccionado$.subscribe(idmodulo => {
       this.menuModulo(idmodulo);
     })
+
+    this.loginService.homeSeleccionado$.subscribe(home => {
+      this.menuPrincipal = [];
+    })
+
+    
   }
 
   ngOnInit(): void {

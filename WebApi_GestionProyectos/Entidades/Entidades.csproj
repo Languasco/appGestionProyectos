@@ -72,6 +72,8 @@
     </Compile>
     <Compile Include="Logistica\Procesos\OrdenCompraAdjuntar_E.cs" />
     <Compile Include="Logistica\Procesos\OrdenCompraCab_E.cs" />
+    <Compile Include="Logistica\Procesos\SolicitudOrdenCompra_E.cs" />
+    <Compile Include="Logistica\Procesos\SolicitudPedidoCompra_E.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Pub_Usuarios.cs">
       <DependentUpon>DsigeModel.tt</DependentUpon>

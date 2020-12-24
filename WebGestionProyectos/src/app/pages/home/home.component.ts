@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   constructor(private  loginService :LoginService, private router:Router) {       
   }
   ngOnInit(): void {
+    this.loginService.homeSeleccionado$.next(true);
     this.modulos =  this.loginService.getModulos();
   }
 

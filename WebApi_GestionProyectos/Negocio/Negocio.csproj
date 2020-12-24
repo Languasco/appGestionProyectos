@@ -58,6 +58,8 @@
     <Compile Include="ControlObras\Procesos\BandejaAtencion_BL.cs" />
     <Compile Include="Logistisca\Proceso\OrdenCompraAdjuntar_BL.cs" />
     <Compile Include="Logistisca\Proceso\OrdenCompraAprobar_BL.cs" />
+    <Compile Include="Logistisca\Proceso\SolicitudOrdenCompra_BL.cs" />
+    <Compile Include="Logistisca\Proceso\SolicitudPedidoCompra_BL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resultados\Resultado.cs" />
     <Compile Include="Uploads\Upload_BL.cs" />
